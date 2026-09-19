@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Error | IRIS Etel Demo{% endblock %}
+
+{% block content %}
+<header class="site-header">
+  <div class="container header-layout">
+    <a href="{{ root_path }}/" class="logo" aria-label="IRIS Etel Demo home">
+      <span class="logo-seal" aria-hidden="true">IRIS</span>
+      <span class="logo-text">Internal Revenue & Identity Services</span>
+    </a>
+  </div>
+</header>
+
+<main class="page-content">
+  <div class="container narrow">
+    <div class="status-card status-error">
+      <h1>Something went wrong</h1>
+      <p><strong>{{ status_code }}</strong> — {{ detail }}</p>
+    </div>
+    <div class="actions-row">
+      <a class="btn btn-primary" href="{{ root_path }}/">Return to home</a>
+      <a class="btn btn-secondary" href="{{ root_path }}/auth/login">Try signing in again</a>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p class="footer-legal">© 2026 IRIS Etel Demo. Built for educational and demonstration purposes only.</p>
+  </div>
+</footer>
+{% endblock %}

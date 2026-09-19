@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Access not granted | IRIS Etel Demo{% endblock %}
+
+{% block content %}
+<header class="site-header">
+  <div class="container header-layout">
+    <a href="{{ root_path }}/" class="logo" aria-label="IRIS Etel Demo home">
+      <span class="logo-seal" aria-hidden="true">IRIS</span>
+      <span class="logo-text">Internal Revenue & Identity Services</span>
+    </a>
+    <div class="header-actions">
+      <a class="btn btn-ghost" href="{{ root_path }}/">Home</a>
+      <a class="btn btn-secondary" href="{{ root_path }}/auth/logout">Sign Out</a>
+    </div>
+  </div>
+</header>
+
+<main class="page-content">
+  <div class="container narrow">
+    <div class="status-card status-warning">
+      <h1>We cannot grant access</h1>
+      <p>You successfully authenticated with ZITADEL, but your account does not have any project roles assigned for this application.</p>
+    </div>
+
+    <section class="data-card">
+      <h2>Your account</h2>
+      <dl class="data-list">
+        <dt>Name</dt><dd>{{ user.name or "—" }}</dd>
+        <dt>Email</dt><dd>{{ user.email or "—" }}</dd>
+        <dt>Organization</dt><dd>{{ user.organization or "—" }}</dd>
+      </dl>
+    </section>
+
+    <section class="data-card">
+      <h2>What to do next</h2>
+      <ul>
+        <li>Ask your ZITADEL administrator to assign a role in the ZITADEL project configured for this application.</li>
+        <li>Verify you signed in with the correct organization.</li>
+        <li>Return to the demo homepage and sign in again after the role has been granted.</li>
+      </ul>
+    </section>
+
+    <div class="actions-row">
+      <a class="btn btn-primary" href="{{ root_path }}/">Return to home</a>
+      <a class="btn btn-secondary" href="{{ root_path }}/auth/logout">Sign out</a>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p class="footer-legal">© 2026 IRIS Etel Demo. Built for educational and demonstration purposes only.</p>
+  </div>
+</footer>
+{% endblock %}

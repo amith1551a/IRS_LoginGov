@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+
+{% block title %}Internal Revenue Service | login.gov capability using ZITADEL{% endblock %}
+
+{% block content %}
+<!-- Official government banner -->
+<div class="gov-banner">
+  <div class="container gov-banner-inner">
+    <span aria-hidden="true">🇺🇸</span>
+    <span>login.gov capability using ZITADEL</span>
+  </div>
+</div>
+
+<!-- Utility bar -->
+<div class="utility-bar">
+  <div class="container utility-bar-inner">
+    <ul class="utility-links">
+      <li><a href="#">Español</a></li>
+      <li><a href="#">News</a></li>
+      <li><a href="#">Charities & Nonprofits</a></li>
+      <li><a href="#">Tax Pros</a></li>
+    </ul>
+    {% if user %}
+      <a class="utility-signin" href="{{ root_path }}/success">Your Account</a>
+    {% else %}
+      <a class="utility-signin" href="{{ root_path }}/auth/login">ZITADEL Sign-In</a>
+    {% endif %}
+  </div>
+</div>
+
+<!-- Header -->
+<header class="site-header">
+  <div class="container header-layout">
+    <a href="{{ root_path }}/" class="logo" aria-label="IRS home">
+      <span class="logo-seal" aria-hidden="true">IRS</span>
+      <span class="logo-text">Internal Revenue Service</span>
+    </a>
+
+    <div class="header-actions">
+      <form class="search-form" role="search" action="#" method="get">
+        <label for="site-search" class="sr-only">Search</label>
+        <input id="site-search" type="search" name="q" placeholder="Search" />
+        <button type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</header>
+
+<!-- Main navigation -->
+<nav class="main-nav" aria-label="Main navigation">
+  <div class="container">
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu">Menu</button>
+    <ul id="nav-menu" class="nav-list">
+      <li><a href="#">File</a></li>
+      <li><a href="#">Pay</a></li>
+      <li><a href="#">Refunds</a></li>
+      <li><a href="#">Credits & Deductions</a></li>
+      <li><a href="#">Forms & Instructions</a></li>
+      <li><a href="#">News & Events</a></li>
+      <li><a href="#">Help</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container hero-layout">
+    <div class="hero-content">
+      <h1>Get your tax records and transcripts</h1>
+      <p class="hero-lead">Access your tax records, view your account, or check your refund status online. Available anytime.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary btn-large" href="#">File your taxes for free</a>
+        <a class="btn btn-ghost btn-large" href="#">Check your refund</a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <h2>Tools</h2>
+      <ul>
+        <li><a href="#">Get your tax record</a></li>
+        <li><a href="#">Make a payment</a></li>
+        <li><a href="#">Check your refund</a></li>
+        <li><a href="#">Find forms & instructions</a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Promo cards -->
+<section class="tasks-section">
+  <div class="container">
+    <h2>Popular services</h2>
+    <div class="task-grid">
+      <article class="task-card">
+        <span class="task-icon" aria-hidden="true">📄</span>
+        <h3><a href="#">File your taxes for free</a></h3>
+        <p>Use IRS Free File to prepare and file your federal income tax return online.</p>
+      </article>
+      <article class="task-card">
+        <span class="task-icon" aria-hidden="true">💳</span>
+        <h3><a href="#">Make a payment</a></h3>
+        <p>Pay your taxes, view your balance, or set up a payment plan online.</p>
+      </article>
+      <article class="task-card">
+        <span class="task-icon" aria-hidden="true">🔎</span>
+        <h3><a href="#">Where's my refund?</a></h3>
+        <p>Check the status of your federal tax refund in about 24 hours after e-filing.</p>
+      </article>
+      <article class="task-card">
+        <span class="task-icon" aria-hidden="true">👤</span>
+        {% if user %}
+          <h3><a href="{{ root_path }}/success">Your Account</a></h3>
+          <p>View your profile, organization, and assigned account access.</p>
+        {% else %}
+          <h3><a href="{{ root_path }}/auth/login">ZITADEL Sign-In</a></h3>
+          <p>Sign in to view your balance, payment history, and account details.</p>
+        {% endif %}
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- News & updates -->
+<section class="info-section">
+  <div class="container info-layout">
+    <div class="info-panel">
+      <h2>News & updates</h2>
+      <ul>
+        <li><a href="#">Get ready to file next year</a></li>
+        <li><a href="#">IRS announces filing season start date</a></li>
+        <li><a href="#">Disaster relief for affected taxpayers</a></li>
+        <li><a href="#">Avoid common filing mistakes</a></li>
+      </ul>
+    </div>
+    <div class="info-panel info-panel-highlight">
+      <h2>Help & resources</h2>
+      <ul>
+        <li><a href="#">Interactive Tax Assistant</a></li>
+        <li><a href="#">Forms, instructions & publications</a></li>
+        <li><a href="#">Let us help you</a></li>
+        <li><a href="#">Taxpayer Bill of Rights</a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-layout">
+      <div class="footer-brand">
+        <span class="logo-seal" aria-hidden="true">IRS</span>
+        <p>Internal Revenue Service<br/>login.gov capability using ZITADEL</p>
+      </div>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <ul>
+          <li><a href="#">About IRS</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Accessibility</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </nav>
+    </div>
+    <p class="footer-legal">login.gov capability using ZITADEL.</p>
+  </div>
+</footer>
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}Signed in | IRIS Etel Demo{% endblock %}
+
+{% block content %}
+<header class="site-header">
+  <div class="container header-layout">
+    <a href="{{ root_path }}/" class="logo" aria-label="IRIS Etel Demo home">
+      <span class="logo-seal" aria-hidden="true">IRIS</span>
+      <span class="logo-text">Internal Revenue & Identity Services</span>
+    </a>
+    <div class="header-actions">
+      <a class="btn btn-ghost" href="{{ root_path }}/">Home</a>
+      <a class="btn btn-secondary" href="{{ root_path }}/auth/logout">Sign Out</a>
+    </div>
+  </div>
+</header>
+
+<main class="page-content">
+  <div class="container narrow">
+    <div class="status-card status-success">
+      <h1>Authentication successful</h1>
+      <p>You have signed in through ZITADEL. Below is the identity and role information returned for your account.</p>
+    </div>
+
+    <section class="data-card">
+      <h2>User profile</h2>
+      <dl class="data-list">
+        <dt>Name</dt><dd>{{ user.name or "—" }}</dd>
+        <dt>Email</dt><dd>{{ user.email or "—" }} {% if user.email_verified %}<span class="badge">Verified</span>{% endif %}</dd>
+        <dt>Username</dt><dd>{{ user.preferred_username or "—" }}</dd>
+        <dt>Organization</dt><dd>{{ user.organization or "—" }}</dd>
+        <dt>Organization ID</dt><dd><code>{{ user.organization_id or "—" }}</code></dd>
+        <dt>Subject</dt><dd><code>{{ user.sub or "—" }}</code></dd>
+      </dl>
+    </section>
+
+    <section class="data-card">
+      <h2>Project roles</h2>
+      {% if roles %}
+        <table class="data-table">
+          <thead>
+            <tr><th>Role</th><th>Organization</th></tr>
+          </thead>
+          <tbody>
+            {% for role in roles %}
+            <tr>
+              <td><span class="badge badge-role">{{ role.role }}</span></td>
+              <td>{{ role.org_domain }} <code>{{ role.org_id }}</code></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <p>No project roles were returned for this account.</p>
+      {% endif %}
+    </section>
+
+    <div class="actions-row">
+      <a class="btn btn-primary" href="{{ root_path }}/">Return to home</a>
+      <a class="btn btn-secondary" href="{{ root_path }}/auth/logout">Sign out</a>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p class="footer-legal">© 2026 IRIS Etel Demo. Built for educational and demonstration purposes only.</p>
+  </div>
+</footer>
+{% endblock %}
