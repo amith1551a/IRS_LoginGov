@@ -22,6 +22,9 @@ OIDC_ISSUER = _require_env("OIDC_ISSUER").rstrip("/")
 OIDC_CLIENT_ID = _require_env("OIDC_CLIENT_ID")
 OIDC_REDIRECT_URI = _require_env("OIDC_REDIRECT_URI")
 OIDC_POST_LOGOUT_URI = _require_env("OIDC_POST_LOGOUT_URI")
+OIDC_ORG_ID = _require_env("OIDC_ORG_ID").strip()
+if not OIDC_ORG_ID:
+    raise RuntimeError("Environment variable OIDC_ORG_ID must not be blank")
 
 # Sessions
 SESSION_SECRET = _require_env("SESSION_SECRET")
@@ -47,4 +50,6 @@ OIDC_SCOPES = [
     "offline_access",
     "urn:zitadel:iam:org:projects:roles",
     "urn:zitadel:iam:user:resourceowner",
+    # Select the organization for hosted login and self-registration.
+    f"urn:zitadel:iam:org:id:{OIDC_ORG_ID}",
 ]

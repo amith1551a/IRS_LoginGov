@@ -31,7 +31,31 @@ email
 offline_access
 urn:zitadel:iam:org:projects:roles
 urn:zitadel:iam:user:resourceowner
+urn:zitadel:iam:org:id:<OIDC_ORG_ID>
 ```
+
+Set `OIDC_ORG_ID` to the ID of the organization where users must sign in or
+register. The reserved `urn:zitadel:iam:org:id:<OIDC_ORG_ID>` scope makes
+ZITADEL use that organization's login and registration context instead of the
+default organization.
+
+Use the **organization ID**, not a project ID, application/client ID, or
+organization name. Keep the scopes in `app/config.py`; `app/auth.py` passes
+that list to Authlib, so no second scope list or duplicate organization scope
+is needed.
+
+In the target organization's **Login Behavior and Security** settings, enable
+**Register allowed** for hosted self-registration. Start from the application's
+sign-in button and choose registration within that authorization flow so the
+organization scope is retained; a standalone registration link may use the
+default organization. Restart the application after changing `.env`.
+
+To verify the configuration, inspect the authorization redirect in your
+browser's network tools. Its decoded `scope` parameter should contain exactly
+one `urn:zitadel:iam:org:id:<OIDC_ORG_ID>` entry. Register a new test user and
+confirm in the ZITADEL console that the user belongs to the target organization.
+This selects the organization for new registrations; it does not move existing
+users between organizations.
 
 Assign at least one project role to test users in ZITADEL; otherwise they will land on the no-access page.
 
@@ -42,7 +66,7 @@ python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 
-# Copy .env.example to .env and fill in OIDC_CLIENT_ID + SESSION_SECRET
+# Copy .env.example to .env and fill in OIDC_CLIENT_ID, OIDC_ORG_ID, and SESSION_SECRET
 cp .env.example .env
 
 python3 -m uvicorn app.main:app --reload --host 127.0.0.1 --port 8088
@@ -65,6 +89,7 @@ Open http://127.0.0.1:8088/iam-demo/.
 
    ```bash
    export OIDC_CLIENT_ID="YOUR_ZITADEL_CLIENT_ID"
+   export OIDC_ORG_ID="YOUR_TARGET_ZITADEL_ORGANIZATION_ID"
    export SESSION_SECRET="YOUR_GENERATED_SECRET"
    chmod +x deploy.sh
    ./deploy.sh
@@ -103,6 +128,8 @@ After deployment:
 
 ## Troubleshooting
 
+- **Registration uses the default organization**: check the authorization request's `scope` parameter for the target organization ID, restart the app after environment changes, and register through the app's sign-in flow.
+- **Registration is unavailable**: enable **Register allowed** in the target organization's login settings (or its inherited instance policy).
 - **Callback fails with "Invalid OIDC state parameter"**: check that sessions are persisted across requests. Ensure `SESSION_SECRET` is stable and cookies are accepted by the browser.
 - **HTTPS redirect issues**: verify your nginx proxy sends `X-Forwarded-Proto: https` and uvicorn runs with `--proxy-headers`.
 - **No roles shown**: confirm the ZITADEL application requests `urn:zitadel:iam:org:projects:roles` and that the user has roles assigned in the project.

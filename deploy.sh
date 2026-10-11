@@ -8,6 +8,7 @@ SERVICE_USER="ec2-user"
 
 # Ensure required environment variables are set before running.
 : "${OIDC_CLIENT_ID:?OIDC_CLIENT_ID is required}"
+: "${OIDC_ORG_ID:?OIDC_ORG_ID is required}"
 : "${SESSION_SECRET:?SESSION_SECRET is required}"
 
 echo "==> Installing system dependencies"
@@ -33,6 +34,7 @@ echo "==> Writing environment file"
 cat > "${APP_DIR}/.env" <<EOF
 OIDC_ISSUER=https://${DOMAIN}:8083
 OIDC_CLIENT_ID=${OIDC_CLIENT_ID}
+OIDC_ORG_ID=${OIDC_ORG_ID}
 OIDC_REDIRECT_URI=https://${DOMAIN}/iam-demo/auth/callback
 OIDC_POST_LOGOUT_URI=https://${DOMAIN}/iam-demo/auth/callback
 SESSION_SECRET=${SESSION_SECRET}
